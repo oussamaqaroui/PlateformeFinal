@@ -5,8 +5,10 @@ package com.PL.Spring.Entities;
 import java.io.Serializable;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,10 +32,10 @@ public class User implements Serializable{
 	@Column(name="user_id")
 	private Long idUser;
 	@Column(name="user_name")
-	private String username;
+	private String user_name;
 	private String password;
 	private boolean actived;
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL) // eager parce qu'il ne trouve pas les role et cascade problème d'enregistrement des fils avant le père
 	@JoinColumn(name="user_id")
 	private Collection<Role> roles;
 	public Long getIdUser() {
@@ -42,11 +44,11 @@ public class User implements Serializable{
 	public void setIdUser(Long idUser) {
 		this.idUser = idUser;
 	}
-	public String getUsername() {
-		return username;
+	public String getUser_name() {
+		return user_name;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUser_name(String username) {
+		this.user_name = username;
 	}
 	public String getPassword() {
 		return password;
@@ -73,9 +75,16 @@ public class User implements Serializable{
 	}
 	public User(String username, String password, boolean actived) {
 		super();
-		this.username = username;
-		this.password = password;
+		this.user_name = username;
+		this.password = DigestUtils.md5Hex( password ); // Hashage
+		//this.password = password; // a vérifier
 		this.actived = actived;
+	}
+	@Override
+	public String toString() {
+		return "User [idUser=" + idUser + ", user_name=" + user_name
+				+ ", password=" + password + ", actived=" + actived
+				+ ", roles=" + roles + "]";
 	}
 	
 	

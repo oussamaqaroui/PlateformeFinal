@@ -14,6 +14,10 @@ import javax.persistence.Table;
 public class Role implements Serializable{
 	private static final long serialVersionUID = -4953490145061587563L;
 	
+	@Override
+	public String toString() {
+		return "Role [idRole=" + idRole + ", roleName=" + roleName + "]";
+	}
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long idRole;
