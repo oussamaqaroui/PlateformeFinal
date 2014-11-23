@@ -1,6 +1,7 @@
 package com.PL.Spring.Entities;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -23,6 +24,14 @@ public class Admin extends User implements Serializable {
 	
 	@NotEmpty
 	private String nom;
+	@Override
+	public String toString() {
+		return "Admin [nom=" + nom + ", prenom=" + prenom + ", email=" + email
+				+ ", photo=" + Arrays.toString(photo) + ", dateNaissance="
+				+ dateNaissance + ", adresse=" + adresse + ", dateCreation="
+				+ dateCreation + ", dateModification=" + dateModification + "]";
+	}
+
 	@NotEmpty
 	private String prenom;
 	@NotEmpty
